@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.deucate.kartik.cricketscorecounter.AddActivity.DATE;
 import static com.deucate.kartik.cricketscorecounter.AddActivity.OVER;
 import static com.deucate.kartik.cricketscorecounter.AddActivity.TABLE_NAME;
@@ -25,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     public ListView mListView;
     private static SQLiteDatabase database;
     private Cursor cursor;
+
+    private List<ListViewGS> mGSList;
+    ListViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,15 @@ public class MainActivity extends AppCompatActivity {
         database = mMatchDatabase.getReadableDatabase();
 
         cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        mGSList = new ArrayList<>();
         getDataFromDatabase(cursor);
+
+        mAdapter = new ListViewAdapter(MainActivity.this,R.layout.main_list_view,mGSList);
+        mListView.setAdapter(mAdapter);
+
+
+
+
     }
 
     @Override
@@ -68,10 +82,17 @@ public class MainActivity extends AppCompatActivity {
     private void getDataFromDatabase(Cursor cursor) {
         while (cursor.moveToNext()) {
             String date = cursor.getString(cursor.getColumnIndex(DATE));
-            String over = cursor.getString(cursor.getColumnIndex(OVER));
+            int over = cursor.getInt(cursor.getColumnIndex(OVER));
             String team1 = cursor.getString(cursor.getColumnIndex(TEAM_1));
             String team2 = cursor.getString(cursor.getColumnIndex(TEAM_2));
-            Log.d(TAG, "onCreate: " + team1 + " vs " + team2 + " for " +over+" at "+date);
+
+            ListViewGS listViewGS = new ListViewGS(team1,team2,date,over);
+
+            mGSList.add(listViewGS);
+//            mAdapter.add(listViewGS);
+
+            Log.d(TAG, "getDataFromDatabase: "+team1+" vs "+team2+" ||  over  "+over+" date "+date);
         }
     }
+
 }
