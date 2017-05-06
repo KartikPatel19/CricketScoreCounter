@@ -11,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.mainFabBtn);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +62,20 @@ public class MainActivity extends AppCompatActivity {
         mGSList = new ArrayList<>();
         getDataFromDatabase(cursor);
 
-        mAdapter = new ListViewAdapter(MainActivity.this,R.layout.main_list_view,mGSList);
+        //mAdapter = new ListViewAdapter(MainActivity.this,R.layout.main_list_view,mGSList);
         mListView.setAdapter(mAdapter);
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(MainActivity.this,RunActivity.class);
+                intent.putExtra("Position",position);
+                startActivity(intent);
+
+            }
+        });
 
 
 
@@ -88,10 +103,11 @@ public class MainActivity extends AppCompatActivity {
 
             ListViewGS listViewGS = new ListViewGS(team1,team2,date,over);
 
-            mGSList.add(listViewGS);
-//            mAdapter.add(listViewGS);
+           // mGSList.add(listViewGS);
+            mAdapter = new ListViewAdapter(MainActivity.this,R.layout.main_list_view,mGSList);
+           mAdapter.add(listViewGS);
 
-            Log.d(TAG, "getDataFromDatabase: "+team1+" vs "+team2+" ||  over  "+over+" date "+date);
+
         }
     }
 
