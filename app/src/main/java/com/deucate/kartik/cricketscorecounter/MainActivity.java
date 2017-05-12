@@ -1,21 +1,25 @@
 package com.deucate.kartik.cricketscorecounter;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.github.javiersantos.materialstyleddialogs.enums.Style;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -30,20 +34,30 @@ import static com.deucate.kartik.cricketscorecounter.AddActivity.TEAM_2;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "----------->";
     public ListView mListView;
-    private static SQLiteDatabase database;
     private Cursor cursor;
 
     private List<ListViewGS> mGSList;
     ListViewAdapter mAdapter;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        toolbar.setTitle("Welcome");
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
+        toolbar.setDrawingCacheBackgroundColor(Color.WHITE);
+        toolbar.animate();
         setSupportActionBar(toolbar);
+
 
         //AdView
         AdView adView = (AdView) findViewById(R.id.adView1);
@@ -64,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         //initializing
         mListView = (ListView) findViewById(R.id.mainList);
         MatchDatabase mMatchDatabase = new MatchDatabase(getBaseContext(), "CricketMatch", null, 1);
-        database = mMatchDatabase.getReadableDatabase();
+        SQLiteDatabase database = mMatchDatabase.getReadableDatabase();
 
         cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         mGSList = new ArrayList<>();
@@ -117,4 +131,57 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_donet:
+
+                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
+                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+                return true;
+
+            case R.id.action_Like:
+                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
+                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+                return true;
+            case R.id.action_rate:
+                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
+                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+                return true;
+            case R.id.action_share:
+                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
+                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
 }

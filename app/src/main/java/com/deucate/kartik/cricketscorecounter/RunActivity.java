@@ -9,19 +9,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-import com.github.javiersantos.materialstyleddialogs.enums.Style;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import static com.deucate.kartik.cricketscorecounter.AddActivity.BALL;
-import static com.deucate.kartik.cricketscorecounter.AddActivity.OVER;
 import static com.deucate.kartik.cricketscorecounter.AddActivity.RUN;
 import static com.deucate.kartik.cricketscorecounter.AddActivity.TABLE_NAME;
 import static com.deucate.kartik.cricketscorecounter.AddActivity.TEAM_1;
@@ -42,7 +40,6 @@ public class RunActivity extends AppCompatActivity {
     TextView team1TV,team2TV,ballTV,RunTV,wicketTV;
 
     private SQLiteDatabase database;
-    private Cursor cursor;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -84,7 +81,8 @@ public class RunActivity extends AppCompatActivity {
         MatchDatabase mMatchDatabase = new MatchDatabase(getBaseContext(), "CricketMatch", null, 1);
         database = mMatchDatabase.getReadableDatabase();
 
-        cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        @SuppressLint("Recycle")
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

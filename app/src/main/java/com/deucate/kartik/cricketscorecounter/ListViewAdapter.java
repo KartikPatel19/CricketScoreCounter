@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ListViewAdapter extends ArrayAdapter<ListViewGS> {
+class ListViewAdapter extends ArrayAdapter<ListViewGS> {
 
 
-    public ListViewAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<ListViewGS> objects) {
+    ListViewAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<ListViewGS> objects) {
         super(context, resource, objects);
     }
 

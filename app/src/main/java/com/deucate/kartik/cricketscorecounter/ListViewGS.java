@@ -1,6 +1,6 @@
 package com.deucate.kartik.cricketscorecounter;
 
-public class ListViewGS {
+class ListViewGS {
 
     private String mTeam1;
     private String mTeam2;
@@ -10,14 +10,14 @@ public class ListViewGS {
     public ListViewGS() {
     }
 
-    public ListViewGS(String team1, String team2, String date, int over) {
+    ListViewGS(String team1, String team2, String date, int over) {
         mTeam1 = team1;
         mTeam2 = team2;
         mDate = date;
         mOver = over;
     }
 
-    public String getTeam1() {
+    String getTeam1() {
         return mTeam1;
     }
 
@@ -25,7 +25,7 @@ public class ListViewGS {
         mTeam1 = team1;
     }
 
-    public String getTeam2() {
+    String getTeam2() {
         return mTeam2;
     }
 

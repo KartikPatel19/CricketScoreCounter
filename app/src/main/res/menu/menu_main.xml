@@ -6,20 +6,21 @@
         android:id="@+id/action_Like"
         android:icon="@drawable/like"
         android:title="@string/Like"
-        app:showAsAction="never"/>
+        app:showAsAction="withText"/>
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/share"
         android:title="@string/share"
+        app:showAsAction="withText"
         />
     <item
         android:id="@+id/action_donet"
-        android:icon="@drawable/donate-icon"
+        android:icon="@drawable/donate_icon"
         android:title="@string/donate"
-        app:showAsAction="never"/>
+        app:showAsAction="withText"/>
     <item
         android:id="@+id/action_rate"
         android:icon="@drawable/rate"
         android:title="@string/Rate"
-        app:showAsAction="never"/>
+        app:showAsAction="withText"/>
 </menu>
