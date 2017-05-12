@@ -9,10 +9,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.github.javiersantos.materialstyleddialogs.enums.Style;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import static com.deucate.kartik.cricketscorecounter.AddActivity.BALL;
 import static com.deucate.kartik.cricketscorecounter.AddActivity.OVER;
@@ -32,7 +38,7 @@ public class RunActivity extends AppCompatActivity {
     int where;
     int matchCount;
 
-    Button run1, run2, run3, run4, run6, runNo, runOut, runWide;
+    Button run0, run1, run2, run3, run4, run6, runNo, runOut, runWide;
     TextView team1TV,team2TV,ballTV,RunTV,wicketTV;
 
     private SQLiteDatabase database;
@@ -44,12 +50,18 @@ public class RunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
 
+
+        AdView adView = (AdView) findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
          team1TV = (TextView) findViewById(R.id.runTeam1);
          team2TV = (TextView) findViewById(R.id.runTeam2);
          ballTV = (TextView) findViewById(R.id.runOver);
          RunTV = (TextView) findViewById(R.id.runRun);
          wicketTV = (TextView) findViewById(R.id.runWicket);
 
+        run0 = (Button) findViewById(R.id.run0);
         run1 = (Button) findViewById(R.id.run1);
         run2 = (Button) findViewById(R.id.run2);
         run3 = (Button) findViewById(R.id.run3);
@@ -58,6 +70,7 @@ public class RunActivity extends AppCompatActivity {
         runNo = (Button) findViewById(R.id.runNO);
         runOut = (Button) findViewById(R.id.runOUT);
         runWide = (Button) findViewById(R.id.runWide);
+        run0.setOnClickListener(mClickListener);
         run1.setOnClickListener(mClickListener);
         run2.setOnClickListener(mClickListener);
         run3.setOnClickListener(mClickListener);
@@ -104,6 +117,11 @@ public class RunActivity extends AppCompatActivity {
 
             switch (v.getId()) {
 
+                case R.id.run0: {
+                    ball--;
+                    ballTV.setText(ball + "");
+                }
+                break;
                 case R.id.run1: {
                     currentRun += 1;
                     ball--;
@@ -140,15 +158,30 @@ public class RunActivity extends AppCompatActivity {
                 }
                 break;
                 case R.id.runNO: {
-                    currentRun++;
-                    ball++;
-                    ballTV.setText(ball + "");
-                    RunTV.setText(currentRun + "");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RunActivity.this);
+                    builder.setTitle("Choose Run").setItems(R.array.no_run_arrey, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int chooseRun = which+1;
+                            currentRun = currentRun+chooseRun;
+                            RunTV.setText(currentRun + "");
+                        }
+                    }).show();
+
                 }
                 break;
                 case R.id.runWide: {
-                    currentRun++;
-                    RunTV.setText(currentRun + "");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RunActivity.this);
+                    builder.setTitle("Choose Run").setItems(R.array.wide_run_arrey, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int chooseRun = which+1;
+                            currentRun = currentRun+chooseRun;
+                            RunTV.setText(currentRun + "");
+                        }
+                    }).show();
                 }
                 break;
                 case R.id.runOUT: {
@@ -166,6 +199,7 @@ public class RunActivity extends AppCompatActivity {
 
     private void buttonisiblity() {
         if (wicket>9 || ball<1){
+            run0.setVisibility(View.INVISIBLE);
             run1.setVisibility(View.INVISIBLE);
             run2.setVisibility(View.INVISIBLE);
             run3.setVisibility(View.INVISIBLE);

@@ -16,6 +16,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+
+        //AdView
+        AdView adView = (AdView) findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.mainFabBtn);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,14 +78,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(MainActivity.this,RunActivity.class);
-                intent.putExtra("Position",position);
+                Intent intent = new Intent(MainActivity.this, RunActivity.class);
+                intent.putExtra("Position", position);
                 startActivity(intent);
 
             }
         });
-
-
 
 
     }
@@ -101,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
             String team1 = cursor.getString(cursor.getColumnIndex(TEAM_1));
             String team2 = cursor.getString(cursor.getColumnIndex(TEAM_2));
 
-            ListViewGS listViewGS = new ListViewGS(team1,team2,date,over);
+            ListViewGS listViewGS = new ListViewGS(team1, team2, date, over);
 
-           // mGSList.add(listViewGS);
-            mAdapter = new ListViewAdapter(MainActivity.this,R.layout.main_list_view,mGSList);
-           mAdapter.add(listViewGS);
+            // mGSList.add(listViewGS);
+            mAdapter = new ListViewAdapter(MainActivity.this, R.layout.main_list_view, mGSList);
+            mAdapter.add(listViewGS);
 
 
         }
