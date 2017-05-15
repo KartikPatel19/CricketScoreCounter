@@ -1,20 +1,24 @@
 package com.deucate.kartik.cricketscorecounter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -149,38 +153,52 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_Like:
-                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
-                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                Uri uri = Uri.parse("https://www.facebook.com/deucate/");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 return true;
             case R.id.action_rate:
-                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
-                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                final Uri urirate = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, urirate);
+                startActivity(rateAppIntent);
                 return true;
-            case R.id.action_share:
-                new MaterialStyledDialog.Builder(this).setDescription("We are working on this section. Please for check update in playstore.").setIcon(R.drawable.working).setStyle(Style.HEADER_WITH_ICON)
-                        .setCancelable(false).setHeaderColor(R.color.colorPrimary).setPositiveText("Ok").onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                }).show();
-                return true;
+            case R.id.action_contect_us:
 
+                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.contect_layout,null);
+
+                TextView fabeookTv = (TextView) view.findViewById(R.id.contectFb);
+                TextView twitterTv = (TextView) view.findViewById(R.id.contectTw);
+
+                fabeookTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse("https://www.facebook.com/deucate/");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
+
+                twitterTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri uri = Uri.parse("https://twitter.com/kartikpatel1910");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
+
+                new MaterialStyledDialog.Builder(this)
+                        .setTitle("Contact us")
+                        .setCustomView(view)
+                        .withDialogAnimation(true)
+                        .setStyle(Style.HEADER_WITH_TITLE)
+                        .withIconAnimation(true)
+                        .show();
+
+                return true;
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
 
     }

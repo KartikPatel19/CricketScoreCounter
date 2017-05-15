@@ -8,12 +8,6 @@
         android:title="@string/Like"
         app:showAsAction="withText"/>
     <item
-        android:id="@+id/action_share"
-        android:icon="@drawable/share"
-        android:title="@string/share"
-        app:showAsAction="withText"
-        />
-    <item
         android:id="@+id/action_donet"
         android:icon="@drawable/donate_icon"
         android:title="@string/donate"
@@ -22,5 +16,10 @@
         android:id="@+id/action_rate"
         android:icon="@drawable/rate"
         android:title="@string/Rate"
+        app:showAsAction="withText"/>
+    <item
+        android:id="@+id/action_contect_us"
+        android:icon="@drawable/rate"
+        android:title="@string/contact"
         app:showAsAction="withText"/>
 </menu>

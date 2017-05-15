@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_marginRight="4dp"
+                android:background="#FFCC80"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/card_ball"/>
+
+        <TextView
+            android:id="@+id/cardBall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11"
+            tools:ignore="HardcodedText"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/cardMove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Wide"
+        android:textColor="#000"
+        android:textSize="32sp"
+        tools:ignore="HardcodedText"/>
+
+</RelativeLayout>
